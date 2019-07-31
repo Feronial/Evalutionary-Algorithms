@@ -1,0 +1,24 @@
+def select_parents(population, score_list, group_size): 
+    
+    # Select elite of the group of chromosomes
+    # Random grouping has been applied
+    
+    selected_best = []
+    
+    select_score = np.array(score_list)
+        
+    selected_numbers = np.arange(0, len(population))
+    
+    np.random.shuffle(selected_numbers)
+    
+    selected_numbers = selected_numbers.reshape((int(len(population)/ group_size), group_size))
+        
+    for n_group in selected_numbers:
+        
+        scr_max = select_score[n_group].max()
+        pop_index = np.where(select_score == select_score[n_group].max())[0][0]
+        selected_best.append([scr_max, population[pop_index]])
+           
+    selected_best_np = np.array(selected_best)
+   
+    return list(selected_best_np[:, 1]), list(selected_best_np[:, 0]), selected_best_np
